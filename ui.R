@@ -3,28 +3,35 @@ library(shiny)
 library(shinydashboard)
 
 dashboardPage(
-  dashboardHeader(),
+  dashboardHeader(title = "NPI data search"),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("IDE", tabName = "IDE", icon = icon("th")),
-      menuItem("Dashboard 1", tabName = "dashboard1", icon = icon("dashboard")),
-      menuItem("Dashboard 2", tabName = "dashboard2", icon = icon("dashboard"))
+      menuItem("IDE",      tabName = "tabIDE",   icon = icon("th")),
+      menuItem("HCP List", tabName = "tabHCP",   icon = icon("list")),
+      menuItem("Stats",    tabName = "tabStats", icon = icon("pie-chart"))
     )
   ),
   dashboardBody(
     fluidRow( 
-      column(width=6,uiOutput("dateMenu")),
-      column(width=6,uiOutput("stateMenu"))),
-    tabItems(
-      # First tab content
-      tabItem(tabName = "IDE",         
-              fluidRow(column(width=12,h2("IDE"))),
-              fluidRow(column(width=12,uiOutput("sqlText"))),
-              actionButton("goButton", "Go!"),
-              div(style = 'overflow-x: scroll', tableOutput("sqlOutput"))
-              ),
-      tabItem(tabName = "dashboard1",          h2("DashBoard 1")),
-      tabItem(tabName = "dashboard2",          h2("DashBoard 2"))
-    )
-  )
-)
+      tabItems(
+        # IDE Tab
+        tabItem(tabName = "tabIDE",
+                fluidRow(column(width=12,h2("IDE"))),
+                fluidRow(column(width=12,uiOutput("sqlDiv"))),
+                actionButton("goButton", "Query"),
+                div(style = 'overflow-x: scroll', dataTableOutput("resultOutput"))
+        ),
+        # HCP List Tab
+        tabItem(tabName = "tabHCP",
+                h2("HCP Search"),
+                column(width=6,uiOutput("stateMenu")),
+                fluidRow(column(width=12,div(style = 'overflow-x: scroll', dataTableOutput("HCPList"))))
+                
+        ),
+        tabItem(tabName = "tabStats",
+                h2("HCP Stats")
+        )
+      )# tabItems
+    )# fluidRow
+  )# dashboardBody
+)# dashboardPage
