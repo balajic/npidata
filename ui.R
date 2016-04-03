@@ -26,7 +26,6 @@ dashboardPage(
                 h2("HCP Search"),
                 column(width=6,uiOutput("stateMenu")),
                 fluidRow(column(width=12,div(style = 'overflow-x: scroll', dataTableOutput("HCPList"))))
-                
         ),
         tabItem(tabName = "tabStats",
                 h2("HCP Stats")

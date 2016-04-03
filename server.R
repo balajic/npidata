@@ -34,9 +34,11 @@ function(input, output, session) {
   
   # Reactive Dropdown selection
   rHCPTab <- reactive({
+    #print( session$token )
     if (is.null(input$state)) return()
     if (input$state == "Select State" ) return()
     sql <- paste0('select from npi where PR_BUSI_MAIL_ADD_STATE_NAME like "',input$state,'"')
+    print(sql)
     execute(h,sql)
   })
   
